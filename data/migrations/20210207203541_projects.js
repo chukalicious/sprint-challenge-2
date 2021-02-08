@@ -6,8 +6,18 @@ exports.up = function (knex) {
       tbl.text("project_description");
       tbl.boolean("project_completed").defaultTo("false");
     })
-    .createTable("resources", (tbl) => {})
-    .createTable("tasks", (tbl) => {});
+    .createTable("resources", (tbl) => {
+      tbl.increments("resource_id");
+      tbl.text("resource_name").notNullable().unique();
+      tbl.text("resource_description");
+    })
+    .createTable("tasks", (tbl) => {
+      tbl.increments("task_id");
+      tbl.text("task_notes");
+      tbl.text("task_description").notNullable();
+      tbl.text("task_completed").defaultTo("false");
+      tbl.foreign("project_id").references("project_id").inTable("projects");
+    });
 };
 
 exports.down = function (knex) {
