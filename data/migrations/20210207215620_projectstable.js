@@ -8,21 +8,20 @@ exports.up = function (knex) {
     })
     .createTable("resources", (tbl) => {
       tbl.increments("resource_id");
-      tbl.text("resource_name").notNullable().unique();
       tbl.text("resource_description");
+      tbl.boolean("resource_name").defaultTo("false");
     })
     .createTable("tasks", (tbl) => {
       tbl.increments("task_id");
       tbl.text("task_notes");
       tbl.text("task_description").notNullable();
-      tbl.text("task_completed").defaultTo("false");
-      tbl.foreign("project_id").references("project_id").inTable("projects");
+      tbl.boolean("task_completed").defaultTo("false");
     });
 };
 
 exports.down = function (knex) {
-  return knex.schema
+  knex.schema
     .dropTableIfExists("projects")
     .dropTableIfExists("projects")
-    .dropTableIfExists("resources");
+    .dropTableIfExists("projects");
 };
