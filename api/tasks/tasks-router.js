@@ -13,7 +13,7 @@ router.get(`/`, (req, res) => {
 router.post("/", async (req, res) => {
   const newTask = req.body;
   if (!newTask.task_description) {
-    res.status(400).json({ message: "enter a description for this " });
+    res.status(400).json({ message: "enter a description for this task" });
   } else {
     try {
       const task = await Tasks.create(newTask);
